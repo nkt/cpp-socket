@@ -34,10 +34,16 @@ public:
     // operators
     friend std::ostream &operator <<(std::ostream &output, Socket &socket);
     friend std::istream &operator >>(std::istream &input, Socket &socket);
-    
-    
     template <class T>
     friend Socket &operator <<(Socket &sock, T &message);
+    friend Socket &operator >> (Socket &sock, std::string &str);
 };
+
+template <class T>
+Socket &operator <<(Socket &sock, T &message)
+{
+    sock.send(std::string(message));
+    return sock;
+}
 
 #endif

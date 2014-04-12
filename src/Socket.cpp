@@ -90,17 +90,16 @@ std::istream &operator >>(std::istream &input, Socket &socket)
     return input;
 }
 
-template <class T>
-Socket &operator <<(Socket &sock, T &message)
-{
-    sock.send(std::string(message));
-    return sock;
-}
-
 Socket &operator <<(Socket &socket, std::string &message)
 {
     socket.send(message);
     return socket;
+}
+
+Socket &operator >> (Socket &sock, std::string &str)
+{
+    str = sock.read();
+    return sock;
 }
 
 sockaddr *Socket::getAddressByHostname(const char *host, const int port)

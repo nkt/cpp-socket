@@ -6,15 +6,17 @@
 
 int main(int argc, const char * argv[])
 {
+    std::string request;
     try {
         Socket sock;
-        sock.bind("localhost", 8081);
-        sock.listen(100);
+        sock.bind("localhost", 5000);
+        sock.listen(100000);
         for (;;) {
             try {
                 Socket client = sock.accept();
-                std::cout << client << std::endl;
-                client << "HTTP/1.1 200 OK";
+                client >> request;
+                client << "HTTP/1.1 200 OK\r\n\r\n";
+                client << request;
             } catch(std::exception &e) {
                 std::cerr << e.what() << std::endl;
             }
