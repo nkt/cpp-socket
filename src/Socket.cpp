@@ -70,24 +70,37 @@ long Socket::send(const std::string message, int flags)
 
 std::string Socket::read(const int flags)
 {
-    char buff[1024];
+    char buff[8192];
     if (recv(handler, buff, sizeof(buff), flags) == 0) {
         throw std::runtime_error("Connection aborted");
     }
     return std::string(buff);
 }
 
-std::ostream& operator << (std::ostream& output, Socket& socket)
+std::ostream &operator <<(std::ostream &output, Socket &socket)
 {
     return output << socket.read();
 }
 
-std::istream& operator >> (std::istream& input, Socket& socket)
+std::istream &operator >>(std::istream &input, Socket &socket)
 {
     std::string message;
     std::getline(input, message);
     socket.send(message);
     return input;
+}
+
+template <class T>
+Socket &operator <<(Socket &sock, T &message)
+{
+    sock.send(std::string(message));
+    return sock;
+}
+
+Socket &operator <<(Socket &socket, std::string &message)
+{
+    socket.send(message);
+    return socket;
 }
 
 sockaddr *Socket::getAddressByHostname(const char *host, const int port)

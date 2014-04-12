@@ -27,13 +27,17 @@ public:
     void bind(const char *host, const int port);
     void connect(const char *host, const int port);
     void listen(const int backlog);
-    long send(const std::string message, const int flags = NULL);
-    std::string read(const int flags = NULL);
+    long send(const std::string message, const int flags = 0);
+    std::string read(const int flags = 0);
     Socket accept();
 
     // operators
-    friend std::ostream& operator << (std::ostream& out, Socket& socket);
-    friend std::istream& operator >> (std::istream& out, Socket& socket);
+    friend std::ostream &operator <<(std::ostream &output, Socket &socket);
+    friend std::istream &operator >>(std::istream &input, Socket &socket);
+    
+    
+    template <class T>
+    friend Socket &operator <<(Socket &sock, T &message);
 };
 
 #endif
