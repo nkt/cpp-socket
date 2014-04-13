@@ -5,6 +5,8 @@
 #define __chat__Server__
 
 #include <iostream>
+#include <list>
+#include <thread>
 #include "Socket.h"
 
 class Server
@@ -12,9 +14,11 @@ class Server
 private:
     Socket *sock;
     int backlog;
+    std::list<Socket> listeners;
 public:
     Server(const char *host, const int port, const int backlog);
     ~Server();
+    void run();
 };
 
 #endif

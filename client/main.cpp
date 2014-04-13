@@ -4,7 +4,8 @@
 #include <iostream>
 #include "../src/Client.h"
 
-int main(int argc, const char * argv[])
+int main(int argc, const char **argv)
 {
-    Server client("localhost", 1111);
+    Client client("localhost", 1111);
+    client.run();
 }

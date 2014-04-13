@@ -13,3 +13,8 @@ Client::~Client()
 {
     delete sock;
 }
+
+void Client::run()
+{
+    
+}

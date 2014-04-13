@@ -10,9 +10,9 @@ Socket::Socket(const int domain, const int type, const int protocol)
         throw std::runtime_error(strerror(errno));
     }
 }
-Socket::Socket(const int _handler, const sockaddr &address)
+Socket::Socket(const int _handler, const sockaddr &address) : handler(_handler)
 {
-    handler = _handler;
+    // TODO: parse address
 }
 
 Socket::~Socket()
@@ -73,6 +73,12 @@ std::string Socket::read(const int flags)
         throw std::runtime_error("Connection aborted");
     }
     return std::string(buff);
+}
+
+Socket &Socket::operator =(const Socket &sock)
+{
+    handler = sock.handler;
+    return *this;
 }
 
 std::ostream &operator <<(std::ostream &output, Socket &socket)

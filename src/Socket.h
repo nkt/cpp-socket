@@ -31,6 +31,7 @@ public:
     Socket accept();
 
     // operators
+    Socket &operator =(const Socket &sock);
     friend std::ostream &operator <<(std::ostream &output, Socket &socket);
     friend std::istream &operator >>(std::istream &input, Socket &socket);
     template <class T>

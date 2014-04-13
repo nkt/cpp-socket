@@ -14,6 +14,7 @@ private:
 public:
     Client(const char *host, const int port);
     ~Client();
+    void run();
 };
 
 #endif
