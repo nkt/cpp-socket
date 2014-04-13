@@ -14,14 +14,13 @@
 #include <string>
 
 class Socket
-{
-private:
-    static inline sockaddr *getAddressByHostname(const char *host, const int port);
-    Socket(const int _handler, const sockaddr &address);
+{    
 protected:
     int handler;
+    
+    Socket(const int _handler, const sockaddr &address);
+    static inline sockaddr *getAddressByHostname(const char *host, const int port);
 public:
-    int backlog;
     Socket(const int domain = AF_INET, const int type = SOCK_STREAM, const int protocol = IPPROTO_TCP);
     ~Socket();
     void bind(const char *host, const int port);

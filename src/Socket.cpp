@@ -37,10 +37,8 @@ void Socket::connect(const char *host, const int port)
     }
 }
 
-void Socket::listen(const int _backlog)
+void Socket::listen(const int backlog)
 {
-    backlog = _backlog;
-    
     if (::listen(handler, backlog) == -1) {
         throw std::runtime_error(strerror(errno));
     }
